@@ -10,6 +10,8 @@
 
 #import "ViewController.h"
 
+#import "DataFetcher.h"
+
 @implementation AppDelegate
 
 - (void)dealloc
@@ -30,6 +32,14 @@
     }
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    
+    NSDate* toDate = [NSDate date];
+    NSDate* fromDate = [toDate dateByAddingTimeInterval:-86400.0];
+    [DataFetcher computeURLForSymbol:@"CRM" fromDate:fromDate toDate:toDate];
+    
+    DataFetcher* fetcher = [[DataFetcher alloc] init];
+    [fetcher fetchDataForSymbol:@"CRM"];
+    
     return YES;
 }
 
