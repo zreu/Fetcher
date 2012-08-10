@@ -8,9 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "ViewController.h"
-
-#import "DataFetcher.h"
+#import "HistoryViewController.h"
 
 @implementation AppDelegate
 
@@ -24,21 +22,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController_iPhone" bundle:nil] autorelease];
-    } else {
-        self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController_iPad" bundle:nil] autorelease];
-    }
+
+    self.viewController = [[[HistoryViewController alloc] init] autorelease];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
-    
-    NSDate* toDate = [NSDate date];
-    NSDate* fromDate = [toDate dateByAddingTimeInterval:-86400.0];
-    [DataFetcher computeURLForSymbol:@"CRM" fromDate:fromDate toDate:toDate];
-    
-    DataFetcher* fetcher = [[DataFetcher alloc] init];
-    [fetcher fetchDataForSymbol:@"CRM"];
     
     return YES;
 }

@@ -6,16 +6,14 @@
 //  Copyright (c) 2012 Wolfgang Mathurin. All rights reserved.
 //
 
-#import <RestKit/RestKit.h>
 #import "DataFetcher.h"
+#import "HistoryData.h"
 
 #define BASE_URL @"http://ichart.finance.yahoo.com"
 #define ACTION @"table.csv"
 #define INT_TO_STRING(n) [NSString stringWithFormat:@"%d", n]
 
 @implementation DataFetcher
-
-@synthesize client = _client;
 
 + (NSDateComponents*) getComponentsForDate:(NSDate*)date {
     DLog(@"date=%@", date);
@@ -56,20 +54,32 @@
     return url;
 }
 
-- (id) init {
-    if (self = [super init]) {
-        [RKClient clientWithBaseURL:BASE_URL];
-    }
-    return self;
-}
-
-- (void) fetchDataForSymbol:(NSString *)symbol {
-    NSString* url = [NSString stringWithFormat:@"%@?s=%@", ACTION, symbol];
-    DLog("@url=%@", url)
-    [self.client get:url usingBlock:^(RKRequest *request) {
-        RKResponse* response = request.response;
-        DLog(@"response=%@", response.body);
-    }];
+- (void) fetchDataForSymbol:(NSString *)symbol onComplete:(void(^)(HistoryData*))block
+{
+    dispatch_queue_t queue = dispatch_queue_create("fetcher", 0);
+    
+    dispatch_async(queue, ^{
+        
+        NSString* urlString = [NSString stringWithFormat:@"%@/%@?s=%@", BASE_URL, ACTION, symbol];
+        DLog("@urlString=%@", urlString);
+        NSURL* url = [NSURL URLWithString:urlString];
+        DLog("@url=%@", url);
+        NSError* error = nil;
+        
+        NSString* response = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+        if (response) {
+            NSScanner* scanner = [NSScanner scannerWithString:response];
+            [scanner scanUpToString:@"\n" intoString:NULL]; // skip header
+            HistoryData* historyData = [[[HistoryData alloc] initWithScanner:scanner symbol:symbol] autorelease];
+            DLog("historyData=%@", historyData);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                block(historyData);
+            });
+        }
+        else {
+            DLog("@error=%@", error);
+        }
+    });
 }
 
 @end
