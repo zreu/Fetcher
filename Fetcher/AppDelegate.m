@@ -23,7 +23,8 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 
-    self.viewController = [[[HistoryViewController alloc] init] autorelease];
+    HistoryViewController* historyViewController = [[[HistoryViewController alloc] init] autorelease];
+    self.viewController = [[[UINavigationController alloc] initWithRootViewController:historyViewController] autorelease];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     

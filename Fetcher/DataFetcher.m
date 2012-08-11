@@ -7,7 +7,7 @@
 //
 
 #import "DataFetcher.h"
-#import "HistoryData.h"
+#import "HistoricData.h"
 
 #define BASE_URL @"http://ichart.finance.yahoo.com"
 #define ACTION @"table.csv"
@@ -54,7 +54,7 @@
     return url;
 }
 
-- (void) fetchDataForSymbol:(NSString *)symbol onComplete:(void(^)(HistoryData*))block
+- (void) fetchDataForSymbol:(NSString *)symbol onComplete:(void(^)(HistoricData*))block
 {
     dispatch_queue_t queue = dispatch_queue_create("fetcher", 0);
     
@@ -70,7 +70,7 @@
         if (response) {
             NSScanner* scanner = [NSScanner scannerWithString:response];
             [scanner scanUpToString:@"\n" intoString:NULL]; // skip header
-            HistoryData* historyData = [[[HistoryData alloc] initWithScanner:scanner symbol:symbol] autorelease];
+            HistoricData* historyData = [[[HistoricData alloc] initWithScanner:scanner symbol:symbol] autorelease];
             DLog("historyData=%@", historyData);
             dispatch_async(dispatch_get_main_queue(), ^{
                 block(historyData);

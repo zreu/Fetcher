@@ -8,23 +8,28 @@
 
 #import "HistoryViewController.h"
 #import "DataFetcher.h"
-#import "HistoryData.h"
+#import "HistoricData.h"
+#import "DayData.h"
 
 @interface HistoryViewController ()
 
-@property (strong,nonatomic) HistoryData* data;
+@property (strong,nonatomic) NSDateFormatter* dateFormatter;
+@property (strong,nonatomic) HistoricData* data;
 
 @end
 
 @implementation HistoryViewController
 
+@synthesize dateFormatter = _dateFormatter;
 @synthesize data = _data;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateFormat:@"MM/dd/yy"];
+        
     }
     return self;
 }
@@ -48,9 +53,9 @@
     //NSDate* fromDate = [toDate dateByAddingTimeInterval:-86400.0];
     //[DataFetcher computeURLForSymbol:@"CRM" fromDate:fromDate toDate:toDate];
     
-    
+    self.title = @"TNA";
     DataFetcher* fetcher = [[DataFetcher alloc] init];
-    [fetcher fetchDataForSymbol:@"TNA" onComplete:^(HistoryData* data){
+    [fetcher fetchDataForSymbol:@"TNA" onComplete:^(HistoricData* data){
         self.data = data;
         [self.tableView reloadData];
     }];
@@ -93,11 +98,32 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
+    
+    double close = ((double)dayData.adjusted_close/100);
+    NSInteger delta = [_data getDelta:row];
+    double deltaPercentage = delta/close;
 
-    cell.textLabel.text = [dayData description];
-    [cell.textLabel sizeToFit];
+    NSString* label = [NSString stringWithFormat:@"%@ %.2f (%.2f%%)", [_dateFormatter stringFromDate:dayData.date], close, deltaPercentage];
+    
+    cell.textLabel.text = label;
     
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger row = [indexPath row];
+    CGFloat delta = (CGFloat) [_data getDelta:row];
+        
+    UIColor* bgcolor;
+    if (delta > 0) {
+        bgcolor = [UIColor colorWithRed:0 green:delta/_data.maxDayDelta/2+0.5 blue:0 alpha:1];
+    }
+    else {
+        bgcolor = [UIColor colorWithRed:delta/_data.minDayDelta/2+0.5 green:0 blue:0 alpha:1];
+    }
+    
+    cell.backgroundColor = bgcolor;
 }
 
 /*

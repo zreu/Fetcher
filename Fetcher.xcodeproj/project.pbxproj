@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4F3E05C115D575CF00DB16D2 /* DayData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3E05C015D575CF00DB16D2 /* DayData.m */; };
 		4F3E05C415D585D200DB16D2 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3E05C315D585D200DB16D2 /* HistoryViewController.m */; };
-		4F3E05C815D586A200DB16D2 /* HistoryData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3E05C715D586A200DB16D2 /* HistoryData.m */; };
+		4F3E05C815D586A200DB16D2 /* HistoricData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F3E05C715D586A200DB16D2 /* HistoricData.m */; };
 		4F8B795D15D46F8800EFD4A2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8B795C15D46F8800EFD4A2 /* UIKit.framework */; };
 		4F8B795F15D46F8800EFD4A2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8B795E15D46F8800EFD4A2 /* Foundation.framework */; };
 		4F8B796115D46F8800EFD4A2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F8B796015D46F8800EFD4A2 /* CoreGraphics.framework */; };
@@ -39,8 +39,8 @@
 		4F3E05C015D575CF00DB16D2 /* DayData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayData.m; sourceTree = "<group>"; };
 		4F3E05C215D585D200DB16D2 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		4F3E05C315D585D200DB16D2 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
-		4F3E05C615D586A200DB16D2 /* HistoryData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryData.h; sourceTree = "<group>"; };
-		4F3E05C715D586A200DB16D2 /* HistoryData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryData.m; sourceTree = "<group>"; };
+		4F3E05C615D586A200DB16D2 /* HistoricData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoricData.h; sourceTree = "<group>"; };
+		4F3E05C715D586A200DB16D2 /* HistoricData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoricData.m; sourceTree = "<group>"; };
 		4F8B795815D46F8800EFD4A2 /* Fetcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fetcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F8B795C15D46F8800EFD4A2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4F8B795E15D46F8800EFD4A2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -90,8 +90,8 @@
 			children = (
 				4F3E05BF15D575CF00DB16D2 /* DayData.h */,
 				4F3E05C015D575CF00DB16D2 /* DayData.m */,
-				4F3E05C615D586A200DB16D2 /* HistoryData.h */,
-				4F3E05C715D586A200DB16D2 /* HistoryData.m */,
+				4F3E05C615D586A200DB16D2 /* HistoricData.h */,
+				4F3E05C715D586A200DB16D2 /* HistoricData.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -298,7 +298,7 @@
 				4F8B7EC715D47BC800EFD4A2 /* DataFetcher.m in Sources */,
 				4F3E05C115D575CF00DB16D2 /* DayData.m in Sources */,
 				4F3E05C415D585D200DB16D2 /* HistoryViewController.m in Sources */,
-				4F3E05C815D586A200DB16D2 /* HistoryData.m in Sources */,
+				4F3E05C815D586A200DB16D2 /* HistoricData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

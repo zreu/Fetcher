@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class HistoryData;
+@class HistoricData;
 
 @interface DataFetcher : NSObject
 
@@ -16,6 +16,6 @@
 
 + (NSString*) computeURLForSymbol:(NSString*)symbol fromDate:(NSDate*)fromDate toDate:(NSDate*)toDate;
 
-- (void) fetchDataForSymbol:(NSString*) symbol onComplete:(void(^)(HistoryData*))block;
+- (void) fetchDataForSymbol:(NSString*) symbol onComplete:(void(^)(HistoricData*))block;
 
 @end
